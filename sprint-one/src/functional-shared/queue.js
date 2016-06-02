@@ -10,20 +10,20 @@ var Queue = function(){
 var queueMethods = {
   count: 0,
   enqueue: function(value){
-      for(var i = 0; i < Object.keys(this.storage).length; i++) {
-       this.storage[Object.keys(this.storage)[i + 1]] = this.storage[Object.keys(this.storage)[i]];
-     }
-     this.storage[Object.keys(this.storage)[0]] = value;
+    this.storage[this.count] = value;
     this.count++;
   },
   dequeue: function(){
-    var dequeuedElement = this.storage[Object.keys(this.storage)[Object.keys(this.storage).length - 1]];
-    delete this.storage[Object.keys(this.storage)[Object.keys(this.storage).length - 1]];
-    if(this.count > 0) {
-     this.count--;
+    var dequeuedElement = this.storage[0];
+    delete this.storage[0];
+    for(var key in this.storage) {
+      this.storage[key - 1] = this.storage[key];
     }
+     if(this.count > 0) {
+       this.count--;
+     }
      return dequeuedElement;
-  },
+   },
   size: function(){
     return this.count;
   }
