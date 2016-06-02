@@ -2,26 +2,27 @@ var Queue = function(){
   // Hey! Rewrite in the new style. Your code will wind up looking very similar,
   // but try not not reference your old code in writing the new style.
   var obj = {};
-  var finalO
-
   _.extend(obj, queueMethods);
   return obj;
 
 };
 var queueMethods = {
-  storage: {},
   count: 0,
   enqueue: function(value){
-    for(var i = 0; i < Object.keys(this.storage).length; i++) {
-      this.storage[Object.keys(this.storage)[i + 1]] = this.storage[Object.keys(this.storage)[i]];
+    var keyArray = Object.keys(this);
+    console.log(keyArray);
+    for(var i = 0; i < Object.keys(this).length; i++) {
+      this[Object.keys(this)[i + 1]] = this[Object.keys(this)[i]];
     }
-    this.storage[Object.keys(this.storage)[0]] = value;
+    console.log(keyArray);
+    Object.keys(this).unshift("newValue");
+    this["newValue"] = value;
     this.count++;
 
   },
   dequeue: function(){
-    var dequeuedElement = this.storage[Object.keys(this.storage)[Object.keys(this.storage).length - 1]];
-    delete this.storage[Object.keys(this.storage)[Object.keys(this.storage).length - 1]];
+    var dequeuedElement = this[Object.keys(this)[Object.keys(this).length - 1]];
+    delete this[Object.keys(this)[Object.keys(this).length - 1]];
     if(this.count > 0) {
     this.count--;
     }
