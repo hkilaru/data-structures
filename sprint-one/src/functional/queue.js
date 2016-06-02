@@ -9,19 +9,20 @@ var Queue = function(){
 
   someInstance.enqueue = function(value){
     for(var i = 1; i < Object.keys(storage).length; i++) {
-      // debugger;
       storage[Object.keys(storage)[i + 1]] =
-      storage[Object.keys(storage[i])];
+      storage[Object.keys(storage)[i]];
     }
     storage[Object.keys(storage)[0]] = value;
     count++;
   };
 
   someInstance.dequeue = function(){
-    delete storage[Object.keys(storage).length - 1];
+    var dequeuedElement = storage[Object.keys(storage)[Object.keys(storage).length - 1]];
+    delete storage[Object.keys(storage)[Object.keys(storage).length - 1]];
     if(count > 0) {
     count--;
     }
+    return dequeuedElement;
   };
 
   someInstance.size = function(){
