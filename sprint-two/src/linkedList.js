@@ -26,7 +26,7 @@ var LinkedList = function(){
   };
 
   list.removeHead = function(){
-    debugger;
+
     if(list.head !== null) {
       var currentHead = list.head;
       list.head = currentHead.next;
@@ -35,6 +35,24 @@ var LinkedList = function(){
   };
 
   list.contains = function(target){
+    var currentNode = list.head;
+    var contains = false;
+    var findNode = function(currentNode){
+        if(currentNode) {
+          if(currentNode === target || currentNode.value === target) {
+            contains = true;
+            return contains;
+          }
+          else {
+              currentNode = currentNode.next;
+              return findNode(currentNode);
+          }
+        }
+        return contains;
+
+      };
+    var find = findNode(currentNode);
+    return find;
   };
 
   return list;
