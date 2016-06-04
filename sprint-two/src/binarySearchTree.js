@@ -1,47 +1,75 @@
 var BinarySearchTree = function(value){
-
-  var fullTree = [];
-
-  return fullTree;
+  this.value = value;
+  this.left;
+  this.right;
+  this.fullTree = [];
 
 };
 
 BinarySearchTree.prototype.insert = function(value) {
-  var node = {};
-  node.value = value;
-  node.left;
-  node.right;
+  var node = new BinarySearchTree(value);
+  this.fullTree.push(this);
+  console.log(this.fullTree);
+  var checkingNode = this.fullTree[0];
 
-
-    fullTree.push(node);
-
-  //if incoming value > existing value and exsiting node doesn't have a left/right
-
-  //if IV < existing value and exsiting node doesn't have a left/right
-
-  // if existing node has a left and right, then check against and continue down chain
-    //call recursively
-
-
-if(!fullTree[0].left && node.value < fullTree[0].value) {
-    fullTree[0].right = node;
-}
-
-
-else{
-
-
-
-}
-
-
+  var traverseTree = function(checkingNode) {
+    if(!checkingNode.left && node.value < checkingNode.value) {
+        checkingNode.left = node;
+    }
+    else if(!checkingNode.right && node.value > checkingNode.value) {
+      checkingNode.right = node;
+    }
+    else {
+      if(node.value < checkingNode.value) {
+        return traverseTree(checkingNode.left);
+      }
+      else if (node.value > checkingNode.value) {
+        return traverseTree(checkingNode.right);
+      }
+    }
+  };
+  traverseTree(checkingNode);
 };
 
 BinarySearchTree.prototype.contains = function(value) {
-
+  var found = false;
+  var checkingNode = this.fullTree[0];
+  var traverseTree = function(checkingNode) {
+    if(checkingNode.value && checkingNode.value === value) {
+      found = true;
+      return found;
+    }
+    else {
+      if(checkingNode.value && (value > checkingNode.value)) {
+        if(checkingNode.right) {
+        traverseTree(checkingNode.right);
+        }
+        else {
+          return found;
+        }
+      }
+      else if(checkingNode.value && (value < checkingNode.value)) {
+        if(checkingNode.left) {
+          traverseTree(checkingNode.left);
+        }
+        else {
+          return found;
+        }
+      }
+    }
+  }
+  traverseTree(checkingNode);
+  return found;
 };
 
-BinarySearchTree.prototype.depthFirstLog = function(value) {
+BinarySearchTree.prototype.depthFirstLog = function(callback) {
+  callback(this.value);
+  if(this.left) {
+    this.left.depthFirstLog(callback);
+  }
+  if(this.right) {
+  this.right.depthFirstLog(callback);
+  }
 
 };
 
