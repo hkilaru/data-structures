@@ -85,10 +85,8 @@ Graph.prototype.removeEdge = function(fromNode, toNode){
 };
 
 Graph.prototype.forEachNode = function(cb){
-  debugger;
   for(var i = 0; i < this.nodes.length; i++) {
     cb(this.nodes[i]);
-    console.log(this.nodes);
   }
 
 };
